@@ -7,8 +7,13 @@ router.get('/', function(req, res) {
 	res.send('succes');
 });
 
-router.get('/id', function(req, res) {
+router.get('/login', function(req, res) {
 	req.session.auto=true;
+	res.send('session succes');
+});
+
+router.get('/logout', function(req, res) {
+	delete req.session.auto;
 	res.send('session succes');
 });
 

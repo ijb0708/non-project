@@ -7,3 +7,4 @@ RUN yum install npm nodejs -y
 COPY ./backend /root/node-server
 
 EXPOSE 2000
+EXPOSE 2001
