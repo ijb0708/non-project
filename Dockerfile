@@ -4,4 +4,6 @@ RUN yum update -y
 RUN yum install epel-release -y
 RUN yum install npm nodejs -y
 
-CMD echo complete
+COPY ./backend /root/node-server
+
+EXPOSE 2000
