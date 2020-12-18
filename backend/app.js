@@ -5,10 +5,10 @@ var mongoose = require('mongoose');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var path = require('path');
+var config = require('./connecter/config');
 
-var api = require('./routes/index.js');
+var api = require('./routes/index');
 var session = require('./connecter/SessionStore');
-var port = process.env.PORT || 2000;
 
 global.__base = __dirname + '/';
 
@@ -19,6 +19,4 @@ app.use(bodyParser.json());
 
 app.use('/api', api);
 
-app.listen(port, function() {
-	console.log('running ' + port);
-})
+module.exports = app;

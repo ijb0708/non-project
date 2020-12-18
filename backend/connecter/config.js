@@ -1,6 +1,10 @@
 
 module.exports = {
-	MySlq : {
+	server: {
+		name: 'empty_book',
+		port: 2000
+	},
+	mysql : {
 		host: 'localhost',
 		user: 'empty',
 		password: 'empty123',

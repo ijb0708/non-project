@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div>
+		<canvas id="gameBoard" width="300" height="300" />
+	</div>
+	<div>
+		<input type="button" id="upBtn" value="-up-">
+		<input type="button" id="downBtn" value="down">
+		<input type="button" id="leftBtn" value="left">
+		<input type="button" id="rightBtn" value="right">
+
+		<input type="button" id="attackBtn" value="attack">
+	</div>
+	<script type="text/javascript">
+		
+	var ws = new WebSocket("ws://localhost:2000");
+
+	var isStart = false;
+
+	let sendData = {
+		'player':0
+		'room':
+	};
+		
+	ws.onopen = function (event) {
+		ws.send(JSON.stringify(sendData));
+	}
+
+	sendBtn.addEventListener('click', function() {
+		ws.send(JSON.stringify(sendData))
+	})
+
+	ws.onmessage = function(e) {
+		console.log()
+	}
+
+	</script>
+</body>
+</html>
