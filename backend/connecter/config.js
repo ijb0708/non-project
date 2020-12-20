@@ -1,14 +1,13 @@
 
 module.exports = {
-	server: {
-		name: 'empty_book',
-		port: 2000
+	server:{
+		port:2000
 	},
 	mysql : {
 		host: 'localhost',
 		user: 'empty',
 		password: 'empty123',
-		port: 3307,
+		port: 3306,
 		database: 'empty_book',
 		insecureAuth : true
 	}

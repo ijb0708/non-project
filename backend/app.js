@@ -12,7 +12,7 @@ var session = require('./connecter/SessionStore');
 
 global.__base = __dirname + '/';
 
-// app.use(session);
+app.use(session);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
