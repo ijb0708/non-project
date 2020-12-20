@@ -5,36 +5,43 @@ connection = function (server) {
 	var msg=null;
 
 	var x=10, y=10;
+	var game={
+				'player_x':x,
+				'player_y':y
+			};
 
-	wss.on('connection', function(e) {
-		msg = JSON.parse(e);
-		console.log(e.test);
+	wss.on('connection', function(ws) {
+		
+		console.log("con");
+
+		ws.on('message', function(m) {
+			msg = JSON.parse(m);
+			console.log(msg.dir)
+			if (msg.dir==1) {
+				y--;
+			}else if(msg.dir==2) {
+				x++;
+			}else if(msg.dir==3) {
+				y++;
+			}else if(msg.dir==4) {
+				x--;
+			}
+
+			game = {
+				'player_x':x,
+				'player_y':y
+			}
+
+			console.log(x+" "+y);
+
+			ws.send(JSON.stringify(game));
+		});
+
+		ws.on('close', function(e) {
+
+		});
 	});
-
-	wss.on('message', function(e) {
-		msg = JSON.parse(e);
-		if (msg.action==1) {
-			y--;
-		}else if(msg.action==2) {
-			x++;
-		}else if(msg.action==3) {
-			y++;
-		}else if(msg.action==4) {
-			x--;
-		}
-
-		game ={
-			player_x:x,
-			player_y:y
-		}
-
-		wss.send(JSON.stringify(sendData))
-	});
-
-	wss.on('close', function(e) {
-
-	});
-}
+};
 
     // wss.on('connection', (ws, req) => { // 웹 소켓 연결 시
     //     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;

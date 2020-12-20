@@ -2,6 +2,11 @@
 <html>
 <head>
 	<title></title>
+	<style type="text/css" media="screen">
+		#gameBoard {
+			border: 1px solid black;
+		}
+	</style>
 </head>
 <body>
 
@@ -17,26 +22,77 @@
 		<input type="button" id="attackBtn" value="attack">
 	</div>
 	<script type="text/javascript">
+
+	var canvas = document.getElementById('gameBoard');
+	var ctx = canvas.getContext('2d');
+
+	var upBtn = document.getElementById('upBtn');
+	var downBtn = document.getElementById('downBtn');
+	var leftBtn = document.getElementById('leftBtn');
+	var rightBtn = document.getElementById('rightBtn');
+
+	var attackBtn = document.getElementById('attackBtn');
 		
 	var ws = new WebSocket("ws://localhost:2000");
 
 	var isStart = false;
+	var direction = 0;
 
-	let sendData = {
-		'player':0
-		'room':
+	var msg = null;
+
+	let sendData= {
+		'plr':0,
+		'rom':0,
+		'dir':direction
 	};
-		
+	
 	ws.onopen = function (event) {
 		ws.send(JSON.stringify(sendData));
+		isStart=true;
 	}
 
-	sendBtn.addEventListener('click', function() {
+	upBtn.addEventListener('click', function() {
+		direction = 1;
+		sendData = {
+		'plr':0,
+		'rom':0,
+		'dir':direction
+		};
+		ws.send(JSON.stringify(sendData));
+	});
+	rightBtn.addEventListener('click', function() {
+		direction = 2;
+		sendData = {
+		'plr':0,
+		'rom':0,
+		'dir':direction
+	};
 		ws.send(JSON.stringify(sendData))
-	})
+	});
+	downBtn.addEventListener('click', function() {
+		direction = 3;
+		sendData = {
+		'plr':0,
+		'rom':0,
+		'dir':direction
+	};
+		ws.send(JSON.stringify(sendData))
+	});
+	leftBtn.addEventListener('click', function() {
+		direction = 4;
+		sendData = {
+		'plr':0,
+		'rom':0,
+		'dir':direction
+	};
+		ws.send(JSON.stringify(sendData))
+	});
 
 	ws.onmessage = function(e) {
-		console.log()
+		data = JSON.parse(e.data);
+		console.log(data);
+		ctx.fillStyle = 'rgb(200,0,0)';
+		ctx.fillRect(data.player_x, data.player_y, 10, 10);
 	}
 
 	</script>
