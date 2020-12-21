@@ -14,7 +14,7 @@
 		
 		var isFirst = true;
 
-		var ws = new WebSocket("ws://192.168.100.56:2000");
+		var ws = new WebSocket("ws://218.148.7.147:80");
 		var sendBtn = document.getElementById('sendBtn');
 		var content = document.getElementById('content');
 		var messege = document.getElementById('messege');
@@ -29,7 +29,7 @@
 				sendData['name']=content.value;
 
 				ws.onopen = function (event) {
-					ws.send(JSON.stringify(sendData))
+					ws.send(JSON.stringify(sendData));
 				}
 				isFirst=false;
 			}else {
