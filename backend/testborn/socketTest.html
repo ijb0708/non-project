@@ -5,25 +5,43 @@
 </head>
 <body>
 
-	<input type="button" id="sendBtn">
+	<textarea id='messege'></textarea><br>
+
+	<input type="text" id='content'>
+	<input type="button" id="sendBtn" value="push">
 
 	<script type="text/javascript">
 		
-		var ws = new WebSocket("ws://localhost:2000");
-		var sendBtn = document.getElementById('sendBtn');
+		var isFirst = true;
 
-		let sendData = {'event':'hello socket'};
-		
-		ws.onopen = function (event) {
-			ws.send(JSON.stringify(sendData));
-		}
+		var ws = new WebSocket("ws://192.168.100.56:2000");
+		var sendBtn = document.getElementById('sendBtn');
+		var content = document.getElementById('content');
+		var messege = document.getElementById('messege');
+
+		var sendData = {
+			'name':'none',
+			'content':'입장'
+		};
 
 		sendBtn.addEventListener('click', function() {
-			ws.send(JSON.stringify(sendData))
+			if (isFirst) {
+				sendData['name']=content.value;
+
+				ws.onopen = function (event) {
+					ws.send(JSON.stringify(sendData))
+				}
+				isFirst=false;
+			}else {
+				sendData['content']=content.value;
+				ws.send(JSON.stringify(sendData))	
+			}
+			content.value='';
 		})
 
 		ws.onmessage = function(e) {
-			console.log()
+			var msg =JSON.parse(e.data)
+			messege.append(msg.name + " : " + msg.content+'\n');
 		}
 
 	</script>

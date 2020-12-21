@@ -1,54 +1,25 @@
 var WebSocket = require('ws');
 
-connection = function (server) {
+var users = [];
+
+connection = function(server){
+
 	var wss = new WebSocket.Server({ server });
-	var msg=null;
+	var num =0;
+	wss.on('connection', function(socket, req) {
 
-	var x=10, y=10;
-	var game={
-				'player_x':x,
-				'player_y':y
-			};
+		// console.log('name : ' + msg);
+		socket.on('message', function(msg) {
+			var s =JSON.parse(msg);
+			console.log(s.name + " : " + s.content);
 
-	wss.on('connection', function(ws) {
-		
-		console.log("con");
-
-		ws.on('message', function(m) {
-			msg = JSON.parse(m);
-			console.log(msg.dir)
-			if (msg.dir==1) {
-				y--;
-			}else if(msg.dir==2) {
-				x++;
-			}else if(msg.dir==3) {
-				y++;
-			}else if(msg.dir==4) {
-				x--;
-			}
-
-			game = {
-				'player_x':x,
-				'player_y':y
-			}
-
-			console.log(x+" "+y);
-
-			ws.send(JSON.stringify(game));
+			wss.clients.forEach(function each(client) {
+      			if (client.readyState === WebSocket.OPEN) {
+        			client.send(msg);
+      			}
+    		});
 		});
-
-		ws.on('close', function(e) {
-
-		});
-	});
-};
-
-    // wss.on('connection', (ws, req) => { // 웹 소켓 연결 시
-    //     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    //     ws.on('message', function(event) {
-    //     	var msg =JSON.parse(event);
-    //     	console.log('in : ' + ip + '{' + msg.event + '}');
-    //     }) 
-    // });
+	})
+}
 
 module.exports = connection;

@@ -17,4 +17,4 @@ GameObject.prototype={
 	}
 }
 
-module.exports = class GameObject;
+module.exports = GameObject;

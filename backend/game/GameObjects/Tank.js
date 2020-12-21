@@ -9,4 +9,4 @@ class Tank extends GameObject {
 	}
 }
 
-module.exports = class Tank;
+module.exports = Tank
