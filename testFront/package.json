@@ -1,8 +1,8 @@
 {
-  "name": "test_front_chat",
-  "description": "chat_fron_app",
+  "name": "test_front",
+  "description": "A Vue.js project",
   "version": "1.0.0",
-  "author": "whitepaper <ijb0708@naver.com>",
+  "author": "WhitePaper <55529807+ijb0708@users.noreply.github.com>",
   "license": "MIT",
   "private": true,
   "scripts": {

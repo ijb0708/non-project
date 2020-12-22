@@ -1,6 +1,6 @@
-# test_front_chat
+# test_front
 
-> chat_fron_app
+> A Vue.js project
 
 ## Build Setup
 

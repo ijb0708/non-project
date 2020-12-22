@@ -27,7 +27,8 @@ export default {
 			Connection:null,
 			isConnection:false,
 			BtnStatus:"",
-			UserRequirement:"",
+			ConnectStatus:0, 
+// 0:연결대기  1:빈문자 2:아무아이디 3:연결중 4: 연결실패 5:연결성공
 			RepeatCount:0
 		}
 	},
@@ -40,18 +41,22 @@ export default {
 			if(text==""){
 				var text = text || text.trim();
 				if(this.RepeatCount<3) {
-					this.UserRequirement="빈문자입니다";
+					this.ConnectStatus=1;
 					this.RepeatCount++;
 					return;
 				}else {
-					this.UserRequirement="그냥 아무아이디로 접속하겠습니다.";
-					text="바보"
+					this.ConnectStatus=2;
 					this.RepeatCount=0;
 				}
 			}
-			this.UserRequirement=text+"님 연결중입니다 ...";
+			this.ConnectStatus=3;
 			this.Connection= new WebSocket("ws://localhost:2000");
-			console.log("connect" + this.Connection);
+			
+			this.Connection.onerror= function() {
+				this.ConnectStatus=4;
+				console.log("disconnect" + this.UserRequirement);
+			}
+
 		}
 	},
 	components: {
